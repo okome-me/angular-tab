@@ -1,0 +1,21 @@
+<!-- メニューボタン -->
+<button mat-icon-button color="primary" [matMenuTriggerFor]="menu" #menuTrigger="matMenuTrigger" (mouseenter)="menuTrigger.openMenu()">
+    <mat-icon>menu</mat-icon>
+</button>
+<!-- ログアウト -->
+<button mat-icon-button class="right_menu" (click)="logout()">
+  <mat-icon>directions_run</mat-icon>
+</button>
+
+<!-- メニュー項目(メニューボタンクリックorマウスオーバーでオープン) -->
+<mat-menu #menu="matMenu">
+    <!-- 各メニュー項目 -->
+    <!-- mockA -->
+    <button (click)="createButtonClicked('mockA')">
+      モックA
+    </button>
+    <!-- mockB -->
+    <button (click)="createButtonClicked('mockB')">
+      モックB
+    </button>
+</mat-menu>

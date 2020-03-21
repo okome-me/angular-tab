@@ -1,0 +1,13 @@
+<mat-card>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+    <mat-form-field>
+      <mat-label>ID</mat-label>
+      <input matInput type="text" id="name" required [(ngModel)]="model.name" name="name" #name="ngModel">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>PW</mat-label>
+      <input matInput type="text" id="password" required [(ngModel)]="model.password" name="password" #password="ngModel">
+    </mat-form-field>
+    <button mat-stroked-button type="submit" [disabled]="!loginForm.form.valid">ログイン</button>
+  </form>
+</mat-card>

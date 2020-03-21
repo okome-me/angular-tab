@@ -1,0 +1,44 @@
+mat-card {
+    padding: 0;
+}
+div.tab_area  {
+    margin: 10px 5px;
+    padding: 5px;
+    text-decoration: none;
+    background-color: #ffffff;
+    margin: 5px 0px;
+}
+div.tab {
+    display: inline;
+    border-radius: 10px;
+    border: 1px solid #c7cacc;
+    padding: 5px 10px;
+}
+.tab div {
+    display: inline;
+}
+.tab div,
+.tab span {
+    cursor: pointer;
+}
+.tab div:visited, div:link {
+    color: #000000;
+}
+.tab div:hover {
+    color: #039be5;
+}
+.tab div.active {
+    color: #039be5;
+}
+.tab span:hover {
+    color: #ff0000;
+}
+.tab span.active {
+    color: #ff0000;
+}
+.ad-display {
+    margin: 5px;
+}
+.current {
+    background-color: #039ae52f;
+}
