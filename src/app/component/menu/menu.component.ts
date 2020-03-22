@@ -1,4 +1,4 @@
-import { Component, ComponentFactoryResolver, ViewContainerRef, ElementRef , Injectable, Sanitizer } from '@angular/core';
+import { Component, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TabService } from '../../service/tab.service';
@@ -18,11 +18,19 @@ export class MenuComponent {
     private router: Router
   ) {}
 
-  createButtonClicked(type: string) {
+  /**
+   * タブ追加
+   */
+  public createButtonClicked(type: string): void {
     this.tabService.addAds(type);
   }
 
-  logout() {
+  /**
+   * ログアウト処理
+   *  - タブ削除
+   *  - ログイン画面遷移
+   */
+  public logout(): void {
     this.tabService.deleteAds();
     this.router.navigate(['login']);
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Login } from './login';
@@ -8,7 +8,7 @@ import { Login } from './login';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
     model = new Login('', '');
     data: any;
@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
     private router: Router
   ) { }
 
-    onSubmit() {
-        if (this.model.name === this.model.password) {
-            this.router.navigate(['main']);
-        } else {
-            this.model.message = 'ログインに失敗しました';
-        }
+  /**
+   * ログイン
+   */
+  public onSubmit(): void {
+    if (this.model.name === this.model.password) {
+        this.router.navigate(['main']);
+    } else {
+        this.model.message = 'ログインに失敗しました';
     }
-
-  ngOnInit(): void {
   }
 
 }

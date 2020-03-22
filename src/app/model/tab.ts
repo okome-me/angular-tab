@@ -2,6 +2,11 @@ import { Type } from '@angular/core';
 
 export class Tab {
   constructor(
+    // コンポーネント
     public component: Type<any>,
-    public data: any) {}
+    // タブ名称
+    public name: string,
+    //
+    public data: any
+  ) { }
 }

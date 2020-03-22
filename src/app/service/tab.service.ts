@@ -5,28 +5,28 @@ import { MockAComponent } from '../component/mock-a/mock-a.component';
 import { MockBComponent } from '../component/mock-b/mock-b.component';
 import { Tab } from '../model/tab';
 
+/**
+ * タブ管理サービス
+ */
 @Injectable()
 export class TabService {
 
   public tabList: Tab[] = new Array();
 
-  constructor(
-    private http: HttpClient
-  ) {}
+  constructor() {}
 
-  getAds() {
-  }
-
-  addAds(type: string) {
+  /**
+   * タブ追加
+   * @param type コンポーネントタイプ
+   */
+  public addAds(type: string): void {
     switch (type) {
       case 'mockA':
         this.tabList.push(
           new Tab(
             MockAComponent,
-            {
-              headline: '',
-              name: 'モックA'
-            }
+            'モックA',
+            {}
           )
         );
         break;
@@ -34,17 +34,18 @@ export class TabService {
         this.tabList.push(
           new Tab(
             MockBComponent,
-            {
-              headline: '',
-              name: 'モックB'
-            }
+            'モックB',
+            {}
           )
         );
         break;
     }
   }
 
-  deleteAds() {
+  /**
+   * タブ削除
+   */
+  public deleteAds(): void {
     this.tabList.length = 0;
   }
 }
