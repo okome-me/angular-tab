@@ -22,7 +22,7 @@ export class MenuComponent {
    * タブ追加
    */
   public createButtonClicked(type: string): void {
-    this.tabService.addAds(type);
+    this.tabService.addTab(type);
   }
 
   /**
@@ -31,7 +31,7 @@ export class MenuComponent {
    *  - ログイン画面遷移
    */
   public logout(): void {
-    this.tabService.deleteAds();
+    this.tabService.deleteAllTab();
     this.router.navigate(['login']);
   }
 

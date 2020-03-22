@@ -11,58 +11,76 @@ import { Tab } from '../../model/tab';
 })
 export class TabComponent implements OnInit, OnDestroy {
 
-  currentAdIndex = 0;
-  @ViewChild(SelectedDirective) adHost: SelectedDirective;
+  selectedIndex = 0;
+  tabList: Tab[];
+  @ViewChild(SelectedDirective) selectedHost: SelectedDirective;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     public tabService: TabService
-  ) { }
+  ) {
+
+    // タブ状態を購読する
+    this.tabService.tabList$.subscribe((tabList: Tab[]) => {
+      this.tabList = tabList;
+    });
+  }
 
   ngOnInit() {
-    this.loadComponent();
+    this._loadComponent();
   }
 
   ngOnDestroy() {
   }
 
-  loadComponent() {
-    if (!this.adHost) {
+  /**
+   * タブに応じたコンポーネント切り替え
+   */
+  private _loadComponent(): void {
+    if (!this.selectedHost) {
       return;
     }
 
-    if (this.tabService.tabList.length === 0) {
+    if (this.tabList.length === 0) {
       // tslint:disable-next-line: no-shadowed-variable
-      const viewContainerRef = this.adHost.viewContainerRef;
+      const viewContainerRef = this.selectedHost.viewContainerRef;
       viewContainerRef.clear();
       return;
     }
-    const adTab = this.tabService.tabList[this.currentAdIndex];
+    const selectedTab = this.tabList[this.selectedIndex];
 
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(adTab.component);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(selectedTab.component);
 
-    const viewContainerRef = this.adHost.viewContainerRef;
+    const viewContainerRef = this.selectedHost.viewContainerRef;
     viewContainerRef.clear();
 
     const componentRef = viewContainerRef.createComponent(componentFactory);
-    (componentRef.instance as Tab).data = adTab.data;
+    (componentRef.instance as Tab).name = selectedTab.name;
+    (componentRef.instance as Tab).data = selectedTab.data;
   }
 
-  deleteComponent() {
-    this.tabService.tabList.splice(this.currentAdIndex, 1);
+  /**
+   * タブクリック
+   * @param index クリック対象
+   */
+  public clickSelect(index: number): void {
+    this.selectedIndex = index;
+    this._loadComponent();
   }
 
-  tabClick(index: number) {
-    this.currentAdIndex = index;
-    this.loadComponent();
-  }
-
-  tabDelete(index: number) {
-    this.currentAdIndex = index;
-    this.deleteComponent();
-    if (this.currentAdIndex === this.tabService.tabList.length) {
-      this.currentAdIndex = index - 1;
+  /**
+   * タブ削除クリック
+   * @param index クリック対象
+   */
+  public clickDelete(index: number): void {
+    this._deleteTab(index);
+    if (this.selectedIndex === this.tabList.length) {
+      this.selectedIndex = index - 1;
     }
-    this.loadComponent();
+    this._loadComponent();
+  }
+
+  private _deleteTab(index) {
+    this.tabService.deleteTab(index);
   }
 }

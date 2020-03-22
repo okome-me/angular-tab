@@ -1,7 +1,7 @@
 <mat-card class="tab_area">
-  <div #tab class="tab" [ngClass]="{current: i === currentAdIndex}" *ngFor="let tab of tabService.tabList; index as i;">
-    <div (click)="tabClick(i)">{{ tab.name }}</div>
-    <span (click)="tabDelete(i)">×</span>
+  <div #tab class="tab" [ngClass]="{current: i === selectedIndex}" *ngFor="let tab of tabList; index as i;">
+    <div (click)="clickSelect(i)">{{ tab.name }}</div>
+    <span (click)="clickDelete(i)">×</span>
   </div>
   <app-menu></app-menu>
 </mat-card>
